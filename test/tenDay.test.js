@@ -5,21 +5,24 @@ import Main from "../lib/components/Main.js";
 import TenDay from "../lib/components/TenDay.js";
 import Input from "../lib/components/Input.js";
 
-describe('tenDay', ()=>{
+describe("tenDay", () => {
+  let firstDay;
+  beforeEach(() => {
+    firstDay = shallow(<TenDay tenDay={[WeatherAPI]} />).find(".ten-day").at(0);
+  });
 
-it('should change when input is changed', () => {
-  let wrapper = shallow(<TenDay tenDay ={[WeatherAPI]} />);
+  it("should display the first day at the first index", () => {
+    let firstDayWeekDay = firstDay.find(".day-of-week").at(0).text();
+    expect(firstDayWeekDay).toEqual(
+      WeatherAPI.forecast.simpleforecast.forecastday[0].date.weekday
+    );
+  });
 
-  // it("has a section with a current location", () => {
-  //   let currentLocation = wrapper.find(".current-container");
-  //
-  //   expect(currentLocation.length).toEqual(1);
-  // });
-  //
-  // it("displays the location of the user input", () => {
-  //   let currentLocation = wrapper.find(".current-location");
-  //
-  //   expect(currentLocation.props().children).toEqual("Denver, CO");
-  // });
-});
+  it("should display an icon for the conditions for the weather at the first hour", () => {
+    let firstDayIcon = firstDay.find("img").at(0).html();
+    expect(firstDayIcon).toEqual(
+      '<img src="http://icons.wxug.com/i/c/k/mostlycloudy.gif" alt="Weather"/>'
+    );
+    //proper way for testing attribute value?
+  });
 });
