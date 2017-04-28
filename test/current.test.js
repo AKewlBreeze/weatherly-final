@@ -16,7 +16,7 @@ describe("state.input should change when input is changed", () => {
 
   it("displays the location of the user input", () => {
     let currentLocation = wrapper.find(".current-location");
-    
+
     expect(currentLocation.props().children).toEqual("Denver, CO");
   });
 });
